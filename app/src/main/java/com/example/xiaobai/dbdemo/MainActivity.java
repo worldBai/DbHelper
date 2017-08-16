@@ -7,12 +7,16 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * 需要进行检测的权限数组
@@ -24,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSON_REQUESTCODE = 0;
     private static final String TAG = "MainActivity";
+    private Button deleteStu;
+    private Button addStu;
+    private Button allStu;
+    private RecyclerView stuList;
 
 
     @Override
@@ -31,6 +39,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         checkPermissions(needPermissions);
         setContentView(R.layout.activity_main);
+        initView();
+        setClick();
+    }
+
+    private void initView() {
+        deleteStu = ((Button) findViewById(R.id.delete_student));
+        addStu = ((Button) findViewById(R.id.add_student));
+        allStu = ((Button) findViewById(R.id.all_student));
+        stuList = ((RecyclerView) findViewById(R.id.recycler));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        stuList.setLayoutManager(layoutManager);
+    }
+
+    private void setClick() {
+        deleteStu.setOnClickListener(this);
+        addStu.setOnClickListener(this);
+        allStu.setOnClickListener(this);
     }
 
     @Override
@@ -103,4 +129,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.all_student:
+                break;
+            case R.id.add_student:
+                break;
+            case R.id.delete_student:
+                break;
+        }
+    }
 }
