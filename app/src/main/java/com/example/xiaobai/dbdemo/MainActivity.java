@@ -15,13 +15,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.xiaobai.dbdemo.adapter.StudentsAdapter;
+import com.example.xiaobai.dbdemo.base.BaseActivity;
 import com.example.xiaobai.dbdemo.bean.Student;
 import com.example.xiaobai.dbdemo.db.DbManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * 需要进行检测的权限数组
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Manifest.permission.READ_EXTERNAL_STORAGE,
     };
 
-    private static final int PERMISSON_REQUESTCODE = 0;
+
     private static final String TAG = "MainActivity";
     private DbManager manager;
     private Button deleteStu;
@@ -79,64 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     *
-     * @param
-     * @since 2.5.0
-     * requestPermissions方法是请求某一权限，
-     */
-    private void checkPermissions(String... permissions) {
-        List<String> needRequestPermissonList = findDeniedPermissions(permissions);
-        if (null != needRequestPermissonList
-                && needRequestPermissonList.size() > 0) {
-            ActivityCompat.requestPermissions(this,
-                    needRequestPermissonList.toArray(
-                            new String[needRequestPermissonList.size()]),
-                    PERMISSON_REQUESTCODE);
-        }
-    }
 
-    /**
-     * 获取权限集中需要申请权限的列表
-     *
-     * @param permissions
-     * @return
-     * @since 2.5.0
-     * checkSelfPermission方法是在用来判断是否app已经获取到某一个权限
-     * shouldShowRequestPermissionRationale方法用来判断是否
-     * 显示申请权限对话框，如果同意了或者不在询问则返回false
-     */
-    private List<String> findDeniedPermissions(String[] permissions) {
-        List<String> needRequestPermissonList = new ArrayList<String>();
-        for (String perm : permissions) {
-            if (ContextCompat.checkSelfPermission(this,
-                    perm) != PackageManager.PERMISSION_GRANTED) {
-                needRequestPermissonList.add(perm);
-            } else {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this, perm)) {
-                    needRequestPermissonList.add(perm);
-                }
-            }
-        }
-        return needRequestPermissonList;
-    }
-
-    /**
-     * 检测是否所有的权限都已经授权
-     * @param grantResults
-     * @return
-     * @since 2.5.0
-     *
-     */
-    private boolean verifyPermissions(int[] grantResults) {
-        for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     @Override
     public void onClick(View v) {

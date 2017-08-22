@@ -22,7 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     //创建数据哭
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table if not exists students (Id integer primary key  autoincrement, name text, sex text, age integer, school text)";
+        String sql = "create table if not exists students (Id integer primary key  autoincrement, name string, sex string, age integer, school string)";
         db.execSQL(sql);
     }
 
