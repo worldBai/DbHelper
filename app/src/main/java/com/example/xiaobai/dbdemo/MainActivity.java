@@ -1,12 +1,7 @@
 package com.example.xiaobai.dbdemo;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +13,7 @@ import com.example.xiaobai.dbdemo.adapter.StudentsAdapter;
 import com.example.xiaobai.dbdemo.base.BaseActivity;
 import com.example.xiaobai.dbdemo.bean.Student;
 import com.example.xiaobai.dbdemo.db.DbManager;
+
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
