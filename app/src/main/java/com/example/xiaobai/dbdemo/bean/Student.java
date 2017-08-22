@@ -10,6 +10,13 @@ public class Student {
     private String school;
     private int age;
 
+    public Student(String name, String sex, String school, int age) {
+        this.name = name;
+        this.sex = sex;
+        this.school = school;
+        this.age = age;
+    }
+
     public String getName() {
         return name;
     }
@@ -40,5 +47,12 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "{"
+                + "name:" + name +",age" + age + ",sex" + sex + ",school" + school+
+                "}";
     }
 }

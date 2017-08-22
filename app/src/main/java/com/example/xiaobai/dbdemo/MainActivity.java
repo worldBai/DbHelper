@@ -2,6 +2,7 @@ package com.example.xiaobai.dbdemo;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.xiaobai.dbdemo.adapter.StudentsAdapter;
+import com.example.xiaobai.dbdemo.bean.Student;
+import com.example.xiaobai.dbdemo.db.DbManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +33,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int PERMISSON_REQUESTCODE = 0;
     private static final String TAG = "MainActivity";
+    private DbManager manager;
     private Button deleteStu;
     private Button addStu;
     private Button allStu;
     private RecyclerView stuList;
+    private StudentsAdapter adapter;
 
 
     @Override
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         checkPermissions(needPermissions);
         setContentView(R.layout.activity_main);
+        manager = new DbManager(this);
         initView();
         setClick();
     }
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         stuList.setLayoutManager(layoutManager);
+        adapter = new StudentsAdapter(this);stuList.setAdapter(adapter);
     }
 
     private void setClick() {
@@ -63,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERMISSON_REQUESTCODE){
             if (verifyPermissions(grantResults)){
-                Log.i(TAG, "onRequestPermissionsResult: 以获取全部权限" );
+                Log.i(TAG, "onRequestPermissionsResult: 已获取全部权限" );
             }else {
                 Log.i(TAG, "onRequestPermissionsResult: 部分权限未获取");
             }
@@ -133,10 +142,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.all_student:
+                adapter.update(manager.queryAll());
                 break;
             case R.id.add_student:
+                Student student = new Student("张三","男","剑桥",18);
+                manager.insertStudent(student);
                 break;
             case R.id.delete_student:
+                manager.deleteStuByAge(18);
                 break;
         }
     }
