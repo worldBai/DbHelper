@@ -53,7 +53,7 @@ public class DbManager {
 
     //通过姓名删除学生
     public void deleteStuByName(String name){
-        String sql = "delete from students where is name = " + name;
+        String sql = "delete from students where name = " + "'" + name + "'" ;
         dataBaseHelper.getWritableDatabase().execSQL(sql);
     }
 
@@ -66,7 +66,7 @@ public class DbManager {
 
     //通过年龄查询学生
     public List<Student> queryStudentByAge(int age){
-        String sql = "select * from students where is age = " + age;
+        String sql = "select * from students where age = " + age;
         Cursor cursor = dataBaseHelper.getWritableDatabase().rawQuery(sql,null);
         return getStudents(cursor);
     }
@@ -80,5 +80,11 @@ public class DbManager {
         }
         Log.i(TAG, "getStudents: " + students.size());
         return students;
+    }
+
+    public void updateStudentbyName(){
+        String sql = "update students set name value (?,?,?,?) " + "where name = 'zhangsan'";
+        Object [] arrays = {"李四","男",20,"清华"};
+        dataBaseHelper.getWritableDatabase().execSQL(sql,arrays);
     }
 }

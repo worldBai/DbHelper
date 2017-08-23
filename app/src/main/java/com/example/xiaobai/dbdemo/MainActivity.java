@@ -84,9 +84,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.add_student:
                 Student student = new Student("张三","男","剑桥",18);
                 manager.insertStudent(student);
+                adapter.update(manager.queryAll());
                 break;
             case R.id.delete_student:
-                manager.deleteStuByAge(18);
+                manager.deleteStuByName("张三");
+                adapter.update(manager.queryAll());
                 break;
         }
     }
