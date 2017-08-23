@@ -1,18 +1,22 @@
 package com.example.xiaobai.dbdemo;
 
 import android.Manifest;
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+
 import android.view.View;
+
 import android.widget.Button;
 
 import com.example.xiaobai.dbdemo.adapter.StudentsAdapter;
 import com.example.xiaobai.dbdemo.base.BaseActivity;
 import com.example.xiaobai.dbdemo.bean.Student;
 import com.example.xiaobai.dbdemo.db.DbManager;
+import com.example.xiaobai.dbdemo.dialog.StudentInfoDialog;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -20,11 +24,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 需要进行检测的权限数组
      */
-    protected String[] needPermissions = {
+    private String[] needPermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
     };
-
 
     private static final String TAG = "MainActivity";
     private DbManager manager;
@@ -85,6 +88,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Student student = new Student("张三","男","剑桥",18);
                 manager.insertStudent(student);
                 adapter.update(manager.queryAll());
+                Intent intent = new Intent(this, StudentInfoDialog.class);
+                startActivity(intent);
                 break;
             case R.id.delete_student:
                 manager.deleteStuByName("张三");
